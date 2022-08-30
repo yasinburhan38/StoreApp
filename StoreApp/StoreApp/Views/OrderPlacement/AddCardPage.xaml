@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StoreApp.Views.OrderPlacement.AddCardPage"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:renderer="clr-namespace:StoreApp.Renderers"
+             xmlns:controls="clr-namespace:StoreApp.Controls"
+             xmlns:Helper="clr-namespace:StoreApp.Helpers"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+             BackgroundColor="#f3f3f3">
+    
+    <ContentPage.Content>
+
+        <Grid RowDefinitions="Auto,*">
+
+            <Frame Padding="10"
+                       HeightRequest="60"
+                       Grid.Row="0"
+                       BackgroundColor="#40E0D0">
+
+                <ImageButton Source="{FontImage FontFamily=UserIcon,
+                                     Glyph={x:Static Helper:IconFonts.ArrowLeft},Color=Black,Size=20}"
+                             Grid.Column="0"
+                             BackgroundColor="Transparent"
+                             x:Name="back"
+                             VerticalOptions="EndAndExpand"
+                             HorizontalOptions="StartAndExpand"
+                             Margin="0,0,0,11"
+                             Command="{Binding BackCmd,Mode=TwoWay}"/>
+
+            </Frame>
+
+            <ScrollView Grid.Row="1">
+
+                <StackLayout Spacing="20"
+                             Margin="15">
+
+                    <Label Text="Voer uw creditcardgegevens in:"
+                           TextColor="Black"
+                           FontSize="Body"
+                           FontAttributes="Bold"/>
+
+                    <Frame Padding="0"
+                           CornerRadius="3"
+                           BorderColor="Gray"
+                           BackgroundColor="White"
+                           HasShadow="False">
+
+                        <StackLayout>
+
+                            <renderer:BorderlessEntry Placeholder="Naam kaarthouder"
+                                                      Text="{Binding order.CardName,Mode=TwoWay}"
+                                                      TextColor="Black"
+                                                      FontSize="Body"
+                                                      Margin="5,5,5,0"/>
+
+                            <BoxView Color="LightGray"
+                                     HeightRequest="1"/>
+
+                            <renderer:BorderlessEntry Placeholder="Kaartnummer"
+                                                      Text="{Binding order.CardPin,Mode=TwoWay}"
+                                                      Keyboard="Numeric"
+                                                      TextColor="Black"
+                                                      FontSize="Body"
+                                                      Margin="5,0,5,5"/>
+
+                        </StackLayout>
+
+                    </Frame>
+
+                    <Label Text="Vervaldatum"
+                           TextColor="Black"
+                           FontSize="Body"
+                           FontAttributes="Bold"/>
+
+                    
+
+                        <Frame BackgroundColor="White"
+                               CornerRadius="10"
+                               Padding="5,0"
+                               Grid.Column="0"
+                               HasShadow="False"
+                               BorderColor="LightGray"
+                                HeightRequest="50">
+
+                        <renderer:BorderlessDatePicker Date="{Binding order.CardExpiration,Mode=TwoWay}"
+                                                       Format="MM-yyyy"
+                                                       TextColor="Black"
+                                                       MinimumDate="{Binding minDate,Mode=TwoWay}"/>
+
+                        </Frame>
+
+                      
+
+                    <Button Text="Betaal"
+                            TextColor="Black"
+                            BackgroundColor="#ffd315"
+                            TextTransform="None"
+                            CornerRadius="10"
+                            Command="{Binding OrderCmd,Mode=TwoWay}"/>
+
+                </StackLayout>
+                
+            </ScrollView>
+            
+        </Grid>
+
+    </ContentPage.Content>
+                
+</ContentPage>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:vm="clr-namespace:StoreApp.ViewModels"
+             x:Class="StoreApp.App">
+    <Application.Resources>
+
+        <Color x:Key="colorPick">#e0f5f8</Color>
+        <Color x:Key="themeColor">#17c2ee</Color>
+
+        <ControlTemplate x:Key="FrameRadioTemplate">
+
+            <Frame BorderColor="LightGray"
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   HasShadow="False">
+
+                <ContentPresenter>
+                        <ContentPresenter.Resources>
+
+                            <Style TargetType="Grid">
+
+                                
+
+                            <Style.Triggers>
+                                
+                                <DataTrigger TargetType="Grid"
+                                             Binding="{Binding Path=IsChecked,
+                                                   Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
+                                             Value="True">
+                                </DataTrigger>
+                                
+                            </Style.Triggers>
+                                
+                            </Style>
+                        </ContentPresenter.Resources>
+                    </ContentPresenter>
+
+                <VisualStateManager.VisualStateGroups>
+
+                    <VisualStateGroup x:Name="CheckedStates">
+
+                        <VisualState x:Name="Checked">
+
+                            <VisualState.Setters>
+                                <Setter Property="BorderColor" Value="#eddfd2"/>
+                                <Setter Property="BackgroundColor" Value="#fcf5ed"/>
+                            </VisualState.Setters>
+
+                        </VisualState>
+
+                        <VisualState x:Name="Unchecked">
+
+                            <VisualState.Setters>
+                                <Setter Property="BorderColor" Value="LightGray"/>
+                                <Setter Property="BackgroundColor" Value="White"/>
+                            </VisualState.Setters>
+
+                        </VisualState>
+
+                    </VisualStateGroup>
+
+                </VisualStateManager.VisualStateGroups>
+
+            </Frame>
+
+        </ControlTemplate>
+
+    </Application.Resources>
+</Application>

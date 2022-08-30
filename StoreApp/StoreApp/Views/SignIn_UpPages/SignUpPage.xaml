@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StoreApp.Views.SignIn_UpPages.SignUpPage"
+             xmlns:renderer="clr-namespace:StoreApp.Renderers"
+             xmlns:controls="clr-namespace:StoreApp.Controls"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+
+    <ContentPage.Content>
+
+        <ScrollView Margin="15">
+
+            <StackLayout>
+
+                <Label Text="Addres"
+                       FontSize="Large"
+                       TextColor="Black"/>
+
+                <Frame HasShadow="False"
+                       BackgroundColor="LightGray"
+                       CornerRadius="3"
+                       BorderColor="Gray">
+
+                    <StackLayout>
+
+                        <controls:CustomEntry TitleText="Bedrijfsnaam: "
+                                              Placeholder="Company name"
+                                              EntryText="{Binding user.Company,Mode=TwoWay}"/>
+
+                        <controls:CustomEntry TitleText="Land:"
+                                              Placeholder="Land"
+                                              EntryText="{Binding user.Country,Mode=TwoWay}"/>
+
+                        <controls:CustomEntry TitleText="Provincie: "
+                                              Placeholder="Provincie"
+                                              EntryText="{Binding user.State_Region,Mode=TwoWay}"/>
+
+                        <controls:CustomEntry TitleText="Stad:"
+                                              Placeholder="Stad"
+                                              EntryText="{Binding user.City,Mode=TwoWay}"/>
+
+                        <controls:CustomEntry TitleText="Postcode: "
+                                              Keyboard="Numeric"
+                                              Placeholder="Postcode"
+                                              EntryText="{Binding user.Pincode,Mode=TwoWay}"/>
+
+                        <Button Text="Registreer"
+                                TextColor="Black"
+                                Margin="0,20"
+                                BackgroundColor="#ecc455"
+                                TextTransform="None"
+                                CornerRadius="10"
+                                Command="{Binding SignupCMD,Mode=TwoWay}"/>
+
+                    </StackLayout>
+
+                </Frame>
+
+            </StackLayout>
+
+        </ScrollView>
+
+    </ContentPage.Content>
+
+</ContentPage>

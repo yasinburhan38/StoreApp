@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:renderer="clr-namespace:StoreApp.Renderers"
+             xmlns:controls="clr-namespace:StoreApp.Controls"
+             xmlns:Helper="clr-namespace:StoreApp.Helpers"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="StoreApp.Views.SignIn_UpPages.SigninPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:local="clr-namespace:StoreApp.Behaviors"
+             BackgroundColor="White">
+    
+    <ContentPage.Content>
+
+        <ScrollView Margin="15">
+
+            <StackLayout>
+
+                <Label Text="Welkom!"
+                       FontSize="Large"
+                       TextColor="Black"/>
+
+                <Frame Padding="0"
+                       HasShadow="False"
+                       CornerRadius="3"
+                       BackgroundColor="White"
+                       BorderColor="Gray">
+
+                    <StackLayout>
+
+                        <Frame BackgroundColor="LightGray"
+                               HasShadow="False"
+                               BorderColor="Gray"
+                               Padding="0">
+
+                            <xct:Expander Margin="10"
+                                          x:Name="UpExp"
+                                          Tapped="Expander_Tapped">
+
+                                <xct:Expander.Header>
+
+                                    <StackLayout Orientation="Horizontal">
+
+                                        <Image Source="{FontImage FontFamily=UserIcon,
+                                                    Glyph={x:Static Helper:IconFonts.CheckboxBlankCircleOutline},Color=Black,Size=20}">
+
+                                            <Image.Triggers>
+                                                <DataTrigger TargetType="Image"
+                                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}"
+                                                             Value="True">
+
+                                                    <Setter Property="Source" Value="{FontImage FontFamily=UserIcon,
+                                                                Glyph={x:Static Helper:IconFonts.CheckboxBlankCircle},Color=#ed7507,Size=20}"/>
+                                                </DataTrigger>
+                                            </Image.Triggers>
+
+                                        </Image>
+
+                                        <Label TextColor="Black"
+                                               VerticalTextAlignment="Center"
+                                               Text="Registreren"
+                                               FontAttributes="Bold"
+                                               FontSize="Body"/>
+
+                                    </StackLayout>
+
+                                </xct:Expander.Header>
+
+                                <StackLayout Margin="5">
+
+                                    <controls:CustomEntry TitleText="Volledige Naam:"
+                                                          Placeholder="Volledige Naam"
+                                                          EntryText="{Binding user.FullName,Mode=TwoWay}"/>
+
+                                    <controls:CustomEntry TitleText="Email"
+                                                          Keyboard="Email"
+                                                          Placeholder="Email"
+                                                          EntryText="{Binding user.Email,Mode=TwoWay}">
+                                        
+                                        <controls:CustomEntry.EntryBehavior>
+                                            <local:EmailValidatorBehavior />
+                                        </controls:CustomEntry.EntryBehavior>
+                                        
+                                    </controls:CustomEntry>
+
+                                    <controls:CustomEntry TitleText="Gsm-Nummer:"
+                                                          Placeholder="Gsm-Nummer"
+                                                          Keyboard="Telephone"
+                                                          EntryText="{Binding user.PhoneNumber,Mode=TwoWay}"/>
+
+                                    <controls:CustomEntry TitleText="Wachtwoord:"
+                                                          x:Name="txtpassword"
+                                                          Placeholder="Wachtwoord"
+                                                          IsPassword="True"
+                                                          EntryText="{Binding user.Password,Mode=TwoWay}"/>
+
+                                    <controls:CustomEntry TitleText="Herhaal Wachtwoord:"
+                                                          Placeholder="Wachtwoord"
+                                                          IsPassword="True"
+                                                          EntryText="{Binding ConfirmPassword,Mode=TwoWay}">
+
+                                        <controls:CustomEntry.EntryBehavior>
+                                            <local:CompareValidationBehavior BindingContext="{x:Reference txtpassword}" Text="{Binding EntryText}"/>
+                                        </controls:CustomEntry.EntryBehavior>
+
+                                    </controls:CustomEntry>
+
+                                    <controls:CustomDatePicker TitleText="Geboortedatum: "
+                                                               Format="dd-MM-yyyy"
+                                                               MaxDate="{Binding maxDate,Mode=TwoWay}"
+                                                               Date="{Binding user.DateofBirth,Mode=TwoWay}"/>
+
+                                    <StackLayout>
+
+                                        <Label FontSize="12"
+                                               Text="Geslacht:"
+                                               x:Name="Title"
+                                               TextColor="Black"
+                                               Margin="5,0"/>
+
+                                        <Frame BackgroundColor="#f3f3f3"
+                                               x:Name="entryFrame"
+                                               Padding="10,5"
+                                               HasShadow="False"
+                                               HeightRequest="40"
+                                               CornerRadius="10">
+
+                                            <combobox:SfComboBox BackgroundColor="Transparent"
+                                                                 ShowBorder="False"
+                                                                 x:Name="gender"
+                                                                 TextColor="Black"
+                                                                 TextSize="Small"
+                                                                 WatermarkColor="Gray"
+                                                                 Focused="gender_Focused"
+                                                                 Unfocused="gender_Unfocused"
+                                                                 Watermark="Selecteer Geslacht"
+                                                                 SelectedItem="{Binding user.Gender,Mode=TwoWay}">
+
+                                                <combobox:SfComboBox.ComboBoxSource>
+                                                    <ListCollection:List x:TypeArguments="x:String">
+
+                                                        <x:String>Man</x:String>
+                                                        <x:String>Vrouw</x:String>
+
+                                                    </ListCollection:List>
+
+                                                </combobox:SfComboBox.ComboBoxSource>
+                                            </combobox:SfComboBox>
+
+                                        </Frame>
+
+                                    </StackLayout>
+
+                                   
+
+                                    <Button Text="Doorgaan"
+                                            x:Name="next"
+                                            TextColor="Black"
+                                            TextTransform="None"
+                                            CornerRadius="10"
+                                            Margin="20"
+                                            BackgroundColor="#ecc455"
+                                            Command="{Binding SignupCMD,Mode=TwoWay}"/>
+
+                                </StackLayout>
+
+                            </xct:Expander>
+
+                        </Frame>
+
+                        <xct:Expander Margin="10"
+                                      IsExpanded="True"
+                                      Tapped="InpExp_Tapped"
+                                      x:Name="InExp">
+
+                            <xct:Expander.Header>
+
+                                <StackLayout Orientation="Horizontal">
+
+                                    <Image Source="{FontImage FontFamily=UserIcon,
+                                                    Glyph={x:Static Helper:IconFonts.CheckboxBlankCircleOutline},Color=Black,Size=20}">
+
+                                        <Image.Triggers>
+                                            <DataTrigger TargetType="Image"
+                                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}"
+                                                             Value="True">
+
+                                                <Setter Property="Source" Value="{FontImage FontFamily=UserIcon,
+                                                                Glyph={x:Static Helper:IconFonts.CheckboxBlankCircle},Color=#ed7507,Size=20}"/>
+                                            </DataTrigger>
+                                        </Image.Triggers>
+
+                                    </Image>
+
+                                    <Label TextColor="Black"
+                                               VerticalTextAlignment="Center"
+                                               Text="Inloggen"
+                                               FontAttributes="Bold"
+                                               FontSize="Body"/>
+
+                                </StackLayout>
+
+                            </xct:Expander.Header>
+
+                            <StackLayout Margin="5">
+
+                                <controls:CustomEntry TitleText="Email"
+                                                      Placeholder="Email"
+                                                      Keyboard="Email"
+                                                      EntryText="{Binding user.Email,Mode=TwoWay}"/>
+
+                                <controls:CustomEntry TitleText="Wachtwoord"
+                                                          Placeholder="Wachtwoord"
+                                                          IsPassword="True"
+                                                          EntryText="{Binding user.Password,Mode=TwoWay}"/>
+                           
+
+                                <Button Text="Login"
+                                        TextColor="Black"
+                                        TextTransform="None"
+                                        CornerRadius="10"
+                                        Margin="20"
+                                        BackgroundColor="#ecc455"
+                                        Command="{Binding LoginCMD ,Mode=TwoWay}"/>
+                                
+
+                            </StackLayout>
+
+                        </xct:Expander>
+
+                    </StackLayout>
+
+                </Frame>
+
+            </StackLayout>
+
+        </ScrollView>
+
+    </ContentPage.Content>
+    
+</ContentPage>

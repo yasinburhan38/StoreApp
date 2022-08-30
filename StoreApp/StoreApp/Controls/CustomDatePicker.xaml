@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StoreApp.Controls.CustomDatePicker"
+             xmlns:renderer="clr-namespace:StoreApp.Renderers">
+    <ContentView.Content>
+
+        <StackLayout>
+
+            <Label FontSize="12"
+                       x:Name="Title"
+                       TextColor="Black"
+                       Margin="5,0"/>
+
+            <Frame BackgroundColor="#f3f3f3"
+                   x:Name="entryFrame"
+                   Padding="10,5"
+                   HeightRequest="40"
+                   HasShadow="False"
+                   CornerRadius="10">
+
+                <renderer:BorderlessDatePicker FontSize="Small"
+                                              x:Name="date" 
+                                              TextColor="Black"
+                                              Margin="0"
+                                              VerticalOptions="CenterAndExpand"
+                                              Focused="Entry_Focused"
+                                              Unfocused="Entry_Unfocused"/>
+
+            </Frame>
+
+        </StackLayout>
+
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:Helper="clr-namespace:StoreApp.Helpers"
+             xmlns:control="clr-namespace:StoreApp.Controls"
+             x:Class="StoreApp.Views.CartPage">
+
+    <ContentPage.Content>
+
+        <Grid RowDefinitions="Auto,*,Auto">
+
+            <Frame Padding="10"
+                       HeightRequest="60"
+                       Grid.Row="0"
+                       BackgroundColor="#40E0D0">
+
+                <Grid ColumnDefinitions="Auto,*"
+                          VerticalOptions="EndAndExpand">
+
+                    <Label Text="Winkelmand"
+                               TextColor="Black"
+                               FontSize="Subtitle"
+                               FontAttributes="Bold"
+                               Grid.ColumnSpan="2"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"/>
+
+                    <ImageButton Source="{FontImage FontFamily=UserIcon,
+                                     Glyph={x:Static Helper:IconFonts.ArrowLeft},Color=Black,Size=20}"
+                             Grid.Column="0"
+                             BackgroundColor="Transparent"
+                             x:Name="back"
+                             VerticalOptions="EndAndExpand"
+                             HorizontalOptions="StartAndExpand"
+                             Margin="0,0,0,11"
+                             Command="{Binding BackCMD,Mode=TwoWay}"/>
+
+                </Grid>
+
+            </Frame>
+
+            <CollectionView Grid.Row="1"
+                            Margin="15,0"
+                            ItemsSource="{Binding List , Mode=TwoWay}"
+                            x:Name="List">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="20"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.EmptyView>
+
+                    <StackLayout VerticalOptions="CenterAndExpand">
+
+                        <Image Source="shoppingcart.png"
+                                   HeightRequest="90"/>
+
+                        <Label Text="Winkelmand is leeg"
+                                   HorizontalTextAlignment="Center" 
+                                   TextColor="Black"
+                                   FontSize="Large"
+                                   FontAttributes="Bold"/>
+                        <Entry  ></Entry>
+
+                    </StackLayout>
+
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Grid ColumnDefinitions="3*,7*"
+                              RowDefinitions="Auto,30">
+
+                            <Image Source="{Binding Image,Mode=TwoWay}"
+                                       HeightRequest="90"
+                                       Grid.Column="0"
+                                       Grid.Row="0"
+                                       Aspect="AspectFit"/>
+
+                            <Frame Padding="0"
+                                   Grid.Column="0"
+                                   Grid.Row="1"
+                                   BackgroundColor="White"
+                                   BorderColor="LightGray"
+                                   CornerRadius="10"
+                                   HeightRequest="30">
+
+                                <Grid ColumnDefinitions="*,*,*">
+
+                                    <Frame Padding="0"
+                                           VerticalOptions="FillAndExpand"
+                                           HorizontalOptions="FillAndExpand"
+                                           Grid.Column="0"
+                                           BackgroundColor="LightGray">
+
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.decCmd, Source={x:Reference List}}" 
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
+
+                                        <Image Source="{FontImage FontFamily=UserIcon,
+                                                    Glyph={x:Static Helper:IconFonts.Minus},Color=Black}"
+                                               Grid.Column="0"/>
+                                        
+                                    </Frame>
+
+                                    <Label Text="{Binding Count ,Mode=TwoWay}"
+                                               TextColor="{StaticResource themeColor}"
+                                               FontSize="Body"
+                                           Grid.Column="1"
+                                               VerticalTextAlignment="Center"
+                                               HorizontalTextAlignment="Center"/>
+
+                                    <Frame Padding="0"
+                                           VerticalOptions="FillAndExpand"
+                                           HorizontalOptions="FillAndExpand"
+                                           Grid.Column="2"
+                                           BackgroundColor="LightGray">
+
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.incCmd, Source={x:Reference List}}" 
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
+
+                                        <Image Source="{FontImage FontFamily=UserIcon,
+                                                        Glyph={x:Static Helper:IconFonts.Plus},Color=Black}"
+                                               Grid.Column="2"/>
+
+                                    </Frame>
+
+                                </Grid>
+
+                            </Frame>
+
+                            <StackLayout Grid.Column="1"
+                                         Grid.Row="0">
+
+                                <Label Text="{Binding Title ,Mode=TwoWay}"
+                                       TextColor="Black"
+                                       FontSize="Medium"/>
+
+                                <Label TextColor="Black"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium">
+
+                                    <Label.FormattedText>
+                                        <FormattedString>
+
+                                            <Span Text="€"/>
+                                            <Span Text="{Binding UpdatedPrice,Mode=TwoWay}"/>
+                                            
+
+                                        </FormattedString>
+                                    </Label.FormattedText>
+
+                                </Label>
+
+                            </StackLayout>
+
+                            <Button Text="Verwijderen"
+                                        BackgroundColor="LightGray"
+                                        CornerRadius="10"
+                                        TextTransform="None"
+                                        TextColor="Black"
+                                        Padding="5"
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                    HorizontalOptions="EndAndExpand"
+                                        Command="{Binding Path=BindingContext.deleteCMD,Source={x:Reference List}, Mode=TwoWay}"
+                                        CommandParameter="{Binding .}"/>
+                            
+                        </Grid>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <Frame BackgroundColor="White"
+                   BorderColor="LightGray"
+                   Grid.Row="2"
+                   Margin="15,0,15,15">
+
+                <StackLayout>
+
+                    <Label TextColor="Black"
+                           FontSize="Medium">
+
+                        <Label.FormattedText>
+                            <FormattedString>
+
+                                <Span Text="Totaal: "/>
+
+                               
+                                <Span Text="€"/>
+                                <Span Text="{Binding demo.SubTotal , Mode=TwoWay}"
+                                      FontAttributes="Bold"
+                                      TextColor="Black"
+                                      FontSize="Medium"/>
+                                
+
+                            </FormattedString>
+                        </Label.FormattedText>
+
+                    </Label>
+
+                    <Button Text="{Binding BtnText,Mode=TwoWay}"
+                            TextColor="Black"
+                            BackgroundColor="#ffd315"
+                            TextTransform="None"
+                            CornerRadius="10"
+                            VerticalOptions="EndAndExpand"
+                            Command="{Binding DualCMD , Mode=TwoWay}"/>
+
+                </StackLayout>
+
+            </Frame>
+
+        </Grid>
+
+    </ContentPage.Content>
+    
+</ContentPage>

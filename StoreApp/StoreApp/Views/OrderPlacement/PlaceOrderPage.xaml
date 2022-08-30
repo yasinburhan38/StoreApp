@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StoreApp.Views.OrderPlacement.PlaceOrderPage"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:renderer="clr-namespace:StoreApp.Renderers"
+             xmlns:controls="clr-namespace:StoreApp.Controls"
+             xmlns:Helper="clr-namespace:StoreApp.Helpers"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+             BackgroundColor="#f3f3f3">
+
+    <ContentPage.Content>
+
+        <Grid RowDefinitions="Auto,*">
+
+                <Frame Padding="10"
+                       HeightRequest="60"
+                       Grid.Row="0"
+                       BackgroundColor="#40E0D0">
+
+                    <Grid ColumnDefinitions="Auto,*"
+                          VerticalOptions="EndAndExpand">
+
+                        <Label Text="Plaats uw bestelling"
+                               TextColor="Black"
+                               FontSize="Subtitle"
+                               FontAttributes="Bold"
+                               Grid.ColumnSpan="2"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"/>
+
+                        <ImageButton Source="{FontImage FontFamily=UserIcon,
+                                     Glyph={x:Static Helper:IconFonts.ArrowLeft},Color=Black,Size=20}"
+                                     Grid.Column="0"
+                                     VerticalOptions="CenterAndExpand"
+                                     BackgroundColor="Transparent"
+                                     x:Name="back"
+                                     Clicked="back_Clicked"/>
+
+                    </Grid>
+
+                </Frame>
+
+            <ScrollView Grid.Row="1">
+
+                <StackLayout Spacing="20"
+                             Margin="15">
+
+                    <Button Text="Bestelling plaatsen"
+                            TextColor="Black"
+                            BackgroundColor="#ffd315"
+                            TextTransform="None"
+                            CornerRadius="10"
+                            Command="{Binding PaymentCMD,Mode=TwoWay}"/>
+
+                    <Frame CornerRadius="10"
+                           Padding="0"
+                           BackgroundColor="White"
+                           BorderColor="LightGray"
+                           HasShadow="False">
+
+                        <StackLayout>
+
+                            <StackLayout Margin="10"
+                                         Orientation="Horizontal">
+
+                                <Label Text="Adres:"
+                                       TextColor="Gray"
+                                       FontSize="Body"
+                                       VerticalTextAlignment="Center"/>
+
+                                <Label TextColor="Black"
+                                       FontSize="Body"
+                                       FontAttributes="Bold">
+
+                                    <Label.FormattedText>
+                                        <FormattedString>
+
+                                            <Span Text="{Binding user.FullName,Mode=TwoWay}"/>
+                                            <Span Text=", "/>
+                                            <Span Text="{Binding user.City,Mode=TwoWay}"/>
+                                            <Span Text=", "/>
+                                            <Span Text="{Binding user.State_Region,Mode=TwoWay}"/>
+                                            <Span Text=", "/>
+                                            <Span Text="{Binding user.Country,Mode=TwoWay}"/>
+
+                                        </FormattedString>
+                                    </Label.FormattedText>
+
+                                </Label>
+
+                            </StackLayout>
+
+                            <BoxView Color="LightGray"
+                                     HeightRequest="1"
+                                     HorizontalOptions="FillAndExpand"/>
+
+                            <StackLayout Margin="10">
+
+                                <Grid ColumnDefinitions="Auto,*">
+
+                                    <Label Text="Artikelen"
+                                           TextColor="Gray"
+                                           FontSize="Body"
+                                           Grid.Column="0"/>
+
+                                    <Label TextColor="Gray"
+                                           Grid.Column="1"
+                                           FontSize="Body"
+                                           HorizontalTextAlignment="End">
+
+                                        <Label.FormattedText>
+                                            <FormattedString>
+
+                                                <Span Text="€"/>
+                                                <Span Text="{Binding Demo.SubTotal,Mode=TwoWay}"/>
+                                                
+
+                                            </FormattedString>
+                                        </Label.FormattedText>
+
+                                    </Label>
+
+                                </Grid>
+
+                                <Grid ColumnDefinitions="Auto,*">
+
+                                    <Label Text="Verzendkosten"
+                                           TextColor="Gray"
+                                           FontSize="Body"
+                                           Grid.Column="0"/>
+
+                                    <Label TextColor="Gray"
+                                           Grid.Column="1"
+                                           FontSize="Body"
+                                           HorizontalTextAlignment="End">
+
+                                        <Label.FormattedText>
+                                            <FormattedString>
+
+                                                <Span Text="€"/>
+                                                <Span Text="20.00"/>
+                                                
+
+                                            </FormattedString>
+                                        </Label.FormattedText>
+
+                                    </Label>
+
+                                </Grid>
+
+                                <Grid ColumnDefinitions="Auto,*">
+
+                                    <Label Text="Andere kosten"
+                                           TextColor="Gray"
+                                           FontSize="Body"
+                                           Grid.Column="0"/>
+
+                                    <Label TextColor="Gray"
+                                           Grid.Column="1"
+                                           FontSize="Body"
+                                           HorizontalTextAlignment="End">
+
+                                        <Label.FormattedText>
+                                            <FormattedString>
+
+                                                <Span Text="€"/>
+                                                <Span Text="10.00"/>
+                                                
+
+                                            </FormattedString>
+                                        </Label.FormattedText>
+
+                                    </Label>
+
+                                </Grid>
+
+                                <Grid ColumnDefinitions="Auto,*">
+
+                                    <Label Text="Totaal:"
+                                           TextColor="Black"
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"
+                                           Grid.Column="0"/>
+
+                                    <Label TextColor="#b32e0f"
+                                           Grid.Column="1"
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="End">
+
+                                        <Label.FormattedText>
+                                            <FormattedString>
+
+                                                <Span Text="€"/>
+                                                <Span Text="{Binding Demo.Total,Mode=TwoWay}"/>
+                                                
+
+                                            </FormattedString>
+                                        </Label.FormattedText>
+
+                                    </Label>
+
+                                </Grid>
+
+                            </StackLayout>
+
+                        </StackLayout>
+
+                    </Frame>
+
+                   
+
+                    <CollectionView ItemsSource="{Binding List}"
+                                    HeightRequest="500">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"
+                                               ItemSpacing="20"/>
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+
+                                <Frame CornerRadius="10"
+                                       Padding="0"
+                                       BackgroundColor="White"
+                                       BorderColor="LightGray"
+                                       HasShadow="False">
+
+                                    <StackLayout>
+
+                                        <Frame Margin="10"
+                                               HasShadow="False"
+                                               BorderColor="#d97712"
+                                               BackgroundColor="#fdf8f2">
+
+                                            <Grid ColumnDefinitions="Auto,*">
+
+                                                <Image Source="{FontImage FontFamily=UserIcon,
+                                                            Glyph={x:Static Helper:IconFonts.RecordCircle},Color=#008092,Size=25}"
+                                                       Grid.Column="0"/>
+
+                                                <Label Grid.Column="1"
+                                                       FontSize="Body">
+
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                           
+                                                           
+                                                            <Span Text="€"
+                                                                  TextColor="Black"
+                                                                  FontAttributes="Bold"/>
+                                                            <Span Text="10 "
+                                                                  TextColor="Black"
+                                                                  FontAttributes="Bold"/>
+                                                            
+
+                                                            <Span Text="Standaard Levering"
+                                                                  TextColor="Black"
+                                                                   FontAttributes="Bold"/>
+
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+
+                                                </Label>
+
+                                            </Grid>
+
+                                        </Frame>
+
+                                        <BoxView Color="LightGray"
+                                                 HeightRequest="1"/>
+
+                                        <Grid ColumnDefinitions="80,*"
+                                              Margin="10">
+
+                                             <Image Source="{Binding Image,Mode=TwoWay}"
+                                                    Aspect="AspectFit"
+                                                    Grid.Column="0"/>
+
+                                            <StackLayout Grid.Column="1">
+
+                                                <Label Text="{Binding Title,Mode=TwoWay}"
+                                                       TextColor="Black"
+                                                       FontAttributes="Bold"/>
+
+                                                <Label FontSize="Body"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#b32e0f">
+
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+
+                                                            <Span Text="€"/>
+                                                            <Span Text="{Binding UpdatedPrice,Mode=TwoWay}"/>
+                                                            
+
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                            </StackLayout>
+
+                                        </Grid>
+
+                                        <Label TextColor="Black"
+                                               FontSize="Body"
+                                               Margin="10">
+
+                                            <Label.FormattedText>
+                                                <FormattedString>
+
+                                                    <Span Text="Aantal: "/>
+                                                    <Span Text="{Binding Count,Mode=TwoWay}"
+                                                          FontAttributes="Bold"/>
+
+                                                </FormattedString>
+                                            </Label.FormattedText>
+
+                                        </Label>
+
+                                  
+
+                                    </StackLayout>
+
+                                </Frame>
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+
+                </StackLayout>
+
+            </ScrollView>
+
+        </Grid>
+
+    </ContentPage.Content>
+            
+</ContentPage>

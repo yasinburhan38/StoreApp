@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="StoreApp.Views.SignIn_UpPages.SearchItemPage"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:controls="clr-namespace:StoreApp.Controls"
+             xmlns:Helper="clr-namespace:StoreApp.Helpers"
+             xmlns:vm="clr-namespace:StoreApp.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:renderer="clr-namespace:StoreApp.Renderers"
+             BackgroundColor="LightGray">
+    
+    <ContentPage.Content>
+        
+        <Grid RowDefinitions="Auto,*">
+            
+            <Frame Padding="10"
+                   Grid.Row="0"
+                   BackgroundColor="#40E0D0"
+                   HeightRequest="60"
+                   HasShadow="False">
+
+                <StackLayout>
+
+                    <Grid ColumnDefinitions="Auto,*"
+                          VerticalOptions="EndAndExpand">
+
+                        <ImageButton Source="{FontImage FontFamily=UserIcon,
+                                     Glyph={x:Static Helper:IconFonts.ArrowLeft},Color=Black,Size=20}"
+                                     Grid.Column="0"
+                                     VerticalOptions="CenterAndExpand"
+                                     BackgroundColor="Transparent"
+                                     x:Name="menu"
+                                     Command="{Binding BackCmd,Mode=TwoWay}"/>
+
+                        <Frame BackgroundColor="White"
+                               CornerRadius="5"
+                               BorderColor="Gray"
+                               Padding="0"
+                               Grid.Column="1"
+                               HeightRequest="40">
+
+                            <renderer:Borderless_SearchBar x:Name="searchBar"
+                                                           TextColor="Black"
+                                                           Placeholder="Zoeken"
+                                                           VerticalOptions="CenterAndExpand"
+                                                           VerticalTextAlignment="Center" 
+                                                           TextChanged="searchBar_TextChanged"/>
+
+
+                        </Frame>
+
+                    </Grid>
+
+                </StackLayout>
+
+            </Frame>
+            
+            <CollectionView ItemsSource="{Binding List,Mode=TwoWay}"
+                            Grid.Row="1"
+                            Margin="20"
+                                            x:Name="MyCollectionView"
+                                            SelectionMode="Single"
+                                            SelectionChangedCommand="{Binding SelectCmd,Mode=TwoWay}"
+                                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference MyCollectionView}}">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Grid ColumnDefinitions="Auto,*"
+                                              ColumnSpacing="20"
+                                              Margin="0,0,0,20">
+
+                            <Image Source="{Binding Image,Mode=TwoWay}"
+                                                   Aspect="AspectFit"
+                                                   HeightRequest="60"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="0"/>
+
+                            <StackLayout Grid.Column="1"
+                                                         HorizontalOptions="StartAndExpand">
+
+                                <Label TextColor="Black"
+                                                       FontSize="Body">
+
+                                    <Label.FormattedText>
+                                        <FormattedString>
+
+                                            <Span Text="{Binding Title ,Mode=TwoWay}"/>
+
+                                        </FormattedString>
+                                    </Label.FormattedText>
+
+                                </Label>
+
+                                <Frame Padding="5"
+                                                       HorizontalOptions="StartAndExpand"
+                                                       BackgroundColor="#FF0080">
+
+                                    <Label TextColor="White"
+                                                       FontSize="Body">
+
+                                        <Label.FormattedText>
+                                            <FormattedString>
+
+                                                <Span Text="€"/>
+                                                <Span Text="{Binding Price ,Mode=TwoWay}"/>
+
+                                            </FormattedString>
+                                        </Label.FormattedText>
+
+                                    </Label>
+
+                                </Frame>
+
+                            </StackLayout>
+
+                        </Grid>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
